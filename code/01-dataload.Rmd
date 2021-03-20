@@ -1,0 +1,190 @@
+---
+title: 'AML Drug Screening: Reading in and Packaging Data - Third Experiment'
+author: "Amir Asiaee and Kevin R. Coombes"
+date: "22 January 2019"
+output:
+  html_document:
+    toc: true
+    theme: yeti
+    highlight: kate
+    number_sections: true
+---
+  
+```{r setup, include=FALSE, results="hide"}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=96)
+```
+```{r mycss, results="asis", echo=FALSE}
+cat('
+<style type="text/css">
+b, strong {color: red; }
+i, em {color: blue; }
+.defn {color: purple; }
+.para {color: purple;
+      font-weight: bold;
+}
+.figure { text-align: center; }
+.caption { font-weight: bold; }
+</style>
+')
+```
+
+# General Setup
+
+Setting up the environment:
+```{r pats}
+setwd("C:/Users/amira/Desktop/repo/imo/code/")
+rm(list = ls())
+source("00-paths.R")
+```
+
+Loading driver mutations of TCGA:
+```{r driverloading, warning = FALSE}
+drivers <- read.csv(file.path(paths$clean, 'allTcgaDrivers.csv', sep=""), stringsAsFactors = FALSE)
+names(drivers) <- c('Gene', 'Cancer')
+dir.create(file.path(paths$clean, 'SumDriverPresence'))
+dir.create(file.path(paths$clean, 'AvgDriverMaf'))
+dir.create(file.path(paths$clean, 'DriverMaf'))
+dir.create(file.path(paths$clean, 'figs'))
+```
+
+# Data Pre-processing for all TCGA
+
+Loading MAF data, filtering passenger mutations out, removing infrequent mutations, and computing average presence and averga MAF of each mutation in all cancer types: 
+
+```{r loading, warning = FALSE}
+folder <- file.path(paths$raw, 'MAF', sep="") 
+allFiles <- list.files(path = folder)
+for(file in allFiles){
+  load(file.path(folder, file, sep=""))
+  cancerType <- strsplit(file, "\\.")[[1]][1]
+  driverGenes <- drivers$Gene[drivers$Cancer == cancerType]
+  driverGenes <- driverGenes[driverGenes %in% rownames(mutFraction)]
+  driverFraction <- mutFraction[driverGenes,]
+  #Finding mutations that are present in mor than 5% of the pop
+  binaryDrivers <- driverFraction
+  binaryDrivers[binaryDrivers > 0] <- 1
+  frequentMut <- rowMeans(binaryDrivers) > 0.05
+  ###
+  frequentDriversMaf <- driverFraction[frequentMut, ]
+  frequentDriversBin <- binaryDrivers[frequentMut, ]
+  
+  # mafDb <- as.data.frame(t(frequentDriversMaf))
+  normalCol <- rep(1, ncol(frequentDriversMaf))
+  mafDb <- cbind(normalCol, as.data.frame(t(frequentDriversMaf)))
+  binDb <- cbind(normalCol, as.data.frame(t(frequentDriversBin)))
+  
+  colnames(binDb)[1] <- colnames(mafDb)[1] <- "Normal"
+  rownames(binDb) <- rownames(mafDb) <- NULL
+  write.csv(colSums(binDb), 
+            file = file.path(paths$clean, 'SumDriverPresence', 
+                             paste(cancerType, '-SumPresence', '.csv', sep="") , sep=""), 
+            row.names = F)  
+  write.csv(colMeans(mafDb), 
+            file = file.path(paths$clean, 'AvgDriverMaf', 
+                             paste(cancerType, '-AvgMaf', '.csv', sep="") , sep=""),
+            row.names = F)  
+  write.csv(mafDb, 
+            file = file.path(paths$clean, 'DriverMaf', 
+                             paste(cancerType, '-Maf', '.csv', sep="") , sep=""),
+            row.names = F)  
+}
+
+```
+
+# DAG with no Tears
+Upload the input data from the DriverMaf folder into your Google Drive and run the Python code in the Google Colab notebook. Download the results and put them in the clean folder under Dag subfolder. Note that you can run the code for a subset of all cancer types. I did it only for `c('BLCA', 'SKCM', 'LUAD', 'LUSC', 'HNSC')` first.
+
+# Drawing Graphs
+Do a little bit of post-processing and draw the results. 
+```{r drawing, warning = FALSE}
+library(igraph)
+types <- c('BLCA', 'SKCM', 'LUAD', 'LUSC', 'HNSC');
+# types <- c('SKCM')
+# seeds <- c(1, 123, 1, 12, 1)
+# seeds <- c(1)
+wthrsh <- c(.1, 0, 0, 0, 0)
+# wthrsh <- c(0.05)
+for(i in 1:length(types)){
+  type <- types[i]
+  thresh <-  wthrsh[i]
+  goodSeed <- seeds[i]
+  dag <- read.csv(file.path(paths$clean, 'Dag', 
+                               paste('res-', type,'-Maf.csv', sep=""), sep=""), 
+                     stringsAsFactors = FALSE)
+  conf <- read.csv(file.path(paths$clean, 'Dag', 
+                            paste('conf-',type,'-Maf.csv', sep=""), sep=""), 
+                            stringsAsFactors = FALSE)
+  
+  sumBin <- read.csv(file.path(paths$clean, 'SumDriverPresence',
+                               paste(type, '-SumPresence', '.csv', sep="") , sep=""),
+                     stringsAsFactors = FALSE)  
+  avgMaf <- read.csv(file.path(paths$clean, 'AvgDriverMaf', 
+                               paste(type, '-AvgMaf', '.csv', sep="") , sep=""),
+                     stringsAsFactors = FALSE)  
+  
+  n <- sumBin$x[1]
+  dag <- dag[,2:ncol(dag)]
+  rownames(dag) <- colnames(dag)
+  conf <- conf[,2:ncol(conf)]
+  rownames(conf) <- colnames(conf)
+  adj <- as.matrix(dag)
+
+  # hist(abs(c(adj)), breaks = 50)
+  # thrsh <- wthrsh[i]
+  #If you want to keep only 2d edges in the network.
+  # sortedAdj <- sort(c(abs(adj)), decreasing = T, index.return = T)
+  # adj[sortedAdj$ix[(2*nrow(adj)):(nrow(adj)^2)]] <- 0
+  # adj[abs(adj) < thrsh] <- 0
+  # adj[abs(adj) < 0.07] <- 0
+
+  
+  
+  # set.seed(goodSeed)
+  set.seed(123)
+  g <- graph_from_adjacency_matrix(adj, mode = "directed", weighted = T)
+  d <- length(V(g)$name)
+  V(g)$label <- paste(V(g)$name, '|' , round(avgMaf, 2)$x, 
+                      '|', round((sumBin/n)*100, 0)$x, 
+                      '%|(', sumBin$x, ')', sep = "")
+
+  
+  g <- delete_edges(g,E(g)[abs(E(g)$weight) < max(mean(abs(E(g)$weight)), thresh)])
+  g <- delete_vertices(g, degree(g) == 0)
+  
+  E(g)$width <- floor(conf[ends(g, E(g))] * 4)
+  E(g)$width[E(g)$width == 4] <- 3
+  E(g)$lty <- 4 - E(g)$width
+  edgeColor <- rep("gray", length(E(g)$weight))
+  edgeColor[E(g)$weight < 0] <- "red" 
+  png(file=file.path(paths$clean, 'figs', paste(type,'.png', sep="")), width=800, height=800, res=100)
+  # 
+  
+  plot(g, vertex.label.cex = .9,
+    vertex.label = V(g)$label,
+    vertex.color = "blue",
+    edge.color = edgeColor,
+    edge.label = round(E(g)$weight,2),
+    edge.label.cex = 1.3,
+    edge.width = E(g)$width + 2,
+    vertex.label.color = "black",
+    vertex.shape = "circle", 
+    vertex.size = 10,
+    vertex.label.dist = -1.5,
+    edge.label.dist = 0,
+    edge.arrow.size = 1.1,
+    layout = layout_in_circle(g)
+  )
+  #layout_as_tree(g, circular = T, mode = 'out')
+  #layout_in_circle(g)
+  #layout_with_graphopt(g, mass = 100, spring.length = 100,spring.constant = 1, max.sa.movement = 5)
+  #layout = layout_with_graphopt(g, mass = 100, spring.length = 100,spring.constant = 1, max.sa.movement = 5)
+  dev.off()
+}
+
+```
+
+# Appendix: Session Info
+This anlysis was performed in this environment:
+```{r si}
+sessionInfo()

@@ -1,0 +1,541 @@
+%% BioMed_Central_Tex_Template_v1.06
+%%                                      %
+%  bmc_article.tex            ver: 1.06 %
+%                                       %
+
+%%IMPORTANT: do not delete the first line of this template
+%%It must be present to enable the BMC Submission system to
+%%recognise this template!!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                     %%
+%%  LaTeX template for BioMed Central  %%
+%%     journal article submissions     %%
+%%                                     %%
+%%          <8 June 2012>              %%
+%%                                     %%
+%%                                     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% For instructions on how to fill out this Tex template           %%
+%% document please refer to Readme.html and the instructions for   %%
+%% authors page on the biomed central website                      %%
+%% https://www.biomedcentral.com/getpublished                      %%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%% BioMed Central currently use the MikTex distribution of         %%
+%% TeX for Windows) of TeX and LaTeX.  This is available from      %%
+%% https://miktex.org/                                             %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% additional documentclass options:
+%  [doublespacing]
+%  [linenumbers]   - put the line numbers on margins
+
+%%% loading packages, author definitions
+
+%\documentclass[twocolumn]{bmcart}% uncomment this for twocolumn layout and comment line below
+\documentclass{bmcart}
+
+%%% Load packages
+\usepackage{amsthm,amsmath}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+%\RequirePackage[numbers]{natbib}
+%\RequirePackage[authoryear]{natbib}% uncomment this for author-year bibliography
+%\RequirePackage{hyperref}
+\usepackage[utf8]{inputenc} %unicode support
+%\usepackage[applemac]{inputenc} %applemac support if unicode package fails
+%\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                             %%
+%%  If you wish to display your graphics for   %%
+%%  your own use using includegraphic or       %%
+%%  includegraphics, then comment out the      %%
+%%  following two lines of code.               %%
+%%  NB: These line *must* be included when     %%
+%%  submitting to BMC.                         %%
+%%  All figure files must be submitted as      %%
+%%  separate graphics through the BMC          %%
+%%  submission process, not included in the    %%
+%%  submitted article.                         %%
+%%                                             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\def\includegraphic{}
+%\def\includegraphics{}
+
+%%% Put your definitions there:
+%\startlocaldefs
+%\endlocaldefs
+
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\def\br{\textit{BRAF}}
+\def\nr{\textit{NRAS}}
+\def\tp{\textit{TP53}}
+\def\nf{\textit{NF1}}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\newtheorem{theorem}{Theorem}
+
+%%% Begin ...
+\begin{document}
+	
+	%%% Start of article front matter
+	\begin{frontmatter}
+		
+		\begin{fmbox}
+			\dochead{Research}
+			
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			%%                                          %%
+			%% Enter the title of your article here     %%
+			%%                                          %%
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			
+			\title{A sample article title}
+			
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			%%                                          %%
+			%% Enter the authors here                   %%
+			%%                                          %%
+			%% Specify information, if available,       %%
+			%% in the form:                             %%
+			%%   <key>={<id1>,<id2>}                    %%
+			%%   <key>=                                 %%
+			%% Comment or delete the keys which are     %%
+			%% not used. Repeat \author command as much %%
+			%% as required.                             %%
+			%%                                          %%
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			
+			\author[
+			addressref={aff1, aff2},                   % id's of addresses, e.g. {aff1,aff2}
+			corref={aff2},                       % id of corresponding address, if any
+			email={asiaeetaheri.1@osu.edu}   % email address
+			]{\inits{A.A.}\fnm{Amir} \snm{Asiaee}}			
+			\author[
+			addressref={aff5},                   % id's of addresses, e.g. {aff1,aff2}
+			email={asiaeetaheri.1@osu.edu}   % email address
+			]{\inits{M.A.}\fnm{Mohammad Sadegh} \snm{Akhondzadeh}}
+			\author[
+			addressref={aff4},                   % id's of addresses, e.g. {aff1,aff2}
+			email={asiaeetaheri.1@osu.edu}   % email address
+			]{\inits{A.O.}\fnm{Alireza} \snm{Omidi}}
+			\author[
+			addressref={aff5},                   % id's of addresses, e.g. {aff1,aff2}
+			email={asiaeetaheri.1@osu.edu}   % email address
+			]{\inits{Z.M.}\fnm{Zeinab} \snm{Maleki}}
+			\author[
+			addressref={aff3},                   % id's of addresses, e.g. {aff1,aff2}
+			email={toland.13@osu.edu}   % email address
+			]{\inits{A.T.}\fnm{Amanda E.} \snm{Toland}}
+			\author[
+			addressref={aff2},                   % id's of addresses, e.g. {aff1,aff2}
+			email={coombes.3@osu.edu.edu}   % email address
+			]{\inits{K.C.}\fnm{Kevin R.} \snm{Coombes}}
+			
+			
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			%%                                          %%
+			%% Enter the authors' addresses here        %%
+			%%                                          %%
+			%% Repeat \address commands as much as      %%
+			%% required.                                %%
+			%%                                          %%
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			
+			\address[id=aff1]{%                           % unique id
+				\orgdiv{Mathematical Biosciences Institute},             % department, if any
+				\orgname{Ohio State University},          % university, etc
+				\city{Columbus},                              % city
+				\cny{USA}                                    % country
+			}
+			
+			\address[id=aff2]{%                           % unique id
+				\orgdiv{Department of Biomedical Informatics},             % department, if any
+				\orgname{Ohio State University},          % university, etc
+				\city{Columbus},                              % city
+				\cny{USA}                                    % country
+			}
+			
+			\address[id=aff3]{%                           % unique id
+				\orgdiv{Department of Cancer Biology and Genetics and
+					Department of Internal Medicine, Division of Human Genetics, Comprehensive Cancer Center},             % department, if any
+				\orgname{Ohio State University},          % university, etc
+				\city{Columbus},                              % city
+				\cny{USA}                                    % country
+			}
+			
+			\address[id=aff4]{%                           % unique id
+				\orgdiv{Computer Engineering Department},             % department, if any
+				\orgname{Sharif University of Technology},          % university, etc
+				\city{Tehran},                              % city
+				\cny{Iran}                                    % country
+			}
+			
+			\address[id=aff5]{%                           % unique id
+				\orgdiv{Department of Electrical and Computer Engineering},             % department, if any
+				\orgname{Isfahan University of Technology},          % university, etc
+				\city{Isfahan},                              % city
+				\cny{Iran}                                    % country
+			}
+			
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			%%                                          %%
+			%% Enter short notes here                   %%
+			%%                                          %%
+			%% Short notes will be after addresses      %%
+			%% on first page.                           %%
+			%%                                          %%
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			
+			%\begin{artnotes}
+			%%\note{Sample of title note}     % note to the article
+			%\note[id=n1]{Equal contributor} % note, connected to author
+			%\end{artnotes}
+			
+		\end{fmbox}% comment this for two column layout
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%                                           %%
+		%% The Abstract begins here                  %%
+		%%                                           %%
+		%% Please refer to the Instructions for      %%
+		%% authors on https://www.biomedcentral.com/ %%
+		%% and include the section headings          %%
+		%% accordingly for your article type.        %%
+		%%                                           %%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\begin{abstractbox}
+			
+			\begin{abstract} % abstract
+				\parttitle{Background} %if any
+				We model the partial order of accumulation of mutations during tumorigenesis by linear structural equations. In this framework, the cancer progression network is modeled as a weighted directed acyclic graph (DAG), which minimizes a suitable continuous loss function.
+				
+				\parttitle{Result} %if any
+				The goal is to learn the DAG from cross-sectional mutation allele frequency data. As a case study, we infer the order of mutations in melanoma. The recovered network of melanoma matches the known biological facts about the subtypes and progression of melanoma while discovers mutual exclusivity patterns among mutations by negative edges. Code implementing the proposed approach is open-source and publicly available at 
+				
+			\end{abstract}
+			
+			
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			%%                                          %%
+			%% The keywords begin here                  %%
+			%%                                          %%
+			%% Put each keyword in separate \kwd{}.     %%
+			%%                                          %%
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			
+			\begin{keyword}
+				\kwd{sample}
+				\kwd{article}
+				\kwd{author}
+			\end{keyword}
+			
+			% MSC classifications codes, if any
+			%\begin{keyword}[class=AMS]
+			%\kwd[Primary ]{}
+			%\kwd{}
+			%\kwd[; secondary ]{}
+			%\end{keyword}
+			
+		\end{abstractbox}
+		%
+		%\end{fmbox}% uncomment this for two column layout
+		
+	\end{frontmatter}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%                                            %%
+	%% The Main Body begins here                  %%
+	%%                                            %%
+	%% Please refer to the instructions for       %%
+	%% authors on:                                %%
+	%% https://www.biomedcentral.com/getpublished %%
+	%% and include the section headings           %%
+	%% accordingly for your article type.         %%
+	%%                                            %%
+	%% See the Results and Discussion section     %%
+	%% for details on how to create sub-sections  %%
+	%%                                            %%
+	%% use \cite{...} to cite references          %%
+	%%  \cite{koon} and                           %%
+	%%  \cite{oreg,khar,zvai,xjon,schn,pond}      %%
+	%%                                            %%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%% start of article main body
+	% <put your article body there>
+	
+	%%%%%%%%%%%%%%%%
+	%% Background %%
+	%%
+\section{Introduction}
+Cancer is a genetic disease where the accumulation of somatic alterations with selective advantage evolves the normal cells to a tumor. Learning this evolutionary process is critical for effective cancer treatment. Understanding the order of alterations leading to tumorigenesis is among the early objectives of cancer researchers \cite{vogelstein1988genetic}. The order in which alterations accumulate in the tumor cell population has shown to have clinical value \cite{Beerenwinkel2015-it}, helps in the refined staging of cancer \cite{vogelstein1988genetic}, and predicts the potential course of the disease \cite{Hosseini2019-xc}. 
+
+The main challenge in inferring the order of alterations is the fact that most large scale cancer data sets have low resolution and are cross-sectional (i.e., one sample at the time of diagnosis). Although the development of single-cell sequencing technologies is accelerating, the amount of single-cell data available from various cancers compared to bulk sequencing results from consortiums like TCGA \cite{Cancer_Genome_Atlas_Research_Network2013-ee} is minuscule. Besides, preprocessing and working with single-cell resolution data has its own computational and biological challenges. Issues like missing data (dropouts) and errors and biases due to whole genome amplification are complicating analysis and modeling of tumors using single-cell data \cite{Lahnemann2020-ao}. In addition, the available data (bulk or single-cell) are usually sampled from a spatially heterogeneous tumor at the time of diagnosis \cite{Marusyk2020-ee} and therefore make it impossible to use phylogenetic reconstruction methods to infer the order of events. Thus, the goal of inferring the order of alterations is usually defined at the population level, i.e., we are interested in how the disease progresses on average in patients, which is recoverable using cross-sectional data from many tumors. 
+
+Cancer progression modeling arguably started with the work of Fearon and Vogelstein \cite{vogelstein1988genetic}, where they used data from precancerous lesions and tumors in various stages to build a chain progression model of colon cancer. Since then, many attempts have been made to generalize and extend cancer progression models. Modeling progression as trees \cite{desper1999inferring},  a mixture of trees \cite{beerenwinkel2005learning}, and Directed Acyclic Graphs (DAGs) \cite{beerenwinkel2007conjunctive} and learning the corresponding structures are among well-studied methods for inferring the order of alterations. More recent works consist of methods that utilize causality \cite{ramazzotti2015capri}, pathway information \cite{Gerstung2011-ul}, and flexible progression modeling \cite{nicol2020oncogenetic} to reconstruct more biologically plausible progression networks. Most of these methods have difficulties learning the mutual exclusivity relations of alterations present in tumors \cite{Cristea2017-fd} and need to take extra steps to find and incorporate those relations into their models \cite{ramazzotti2015capri, nicol2020oncogenetic}.
+
+One of the main drawbacks of all of the papers in this domain is that they reduce the measurements to binary values. For example, for mutations, the measured values are mutation allele frequencies, but for ease of computation, the observed fractions are converted to zero one values. We believe that, especially in bulk sequencing data, this conversion results in a huge loss of information, which may end up being crucial in inferring the order of mutations. 
+
+In this work, we use linear structural equations to model the cancer progression DAG and propose a novel method for learning the DAG structure from mutation allele frequencies (MAFs). Our contributions are as follows:
+\begin{itemize}[leftmargin=*]
+	\item \textbf{Learning cancer progression from continuous mutation allele frequency data.}
+	All of the previous models use a threshold to convert the continuous values of the mutation allele frequency to binary. Discarding MAFs and learning the progression network from binary data may eliminate relevant information contained in MAFs. To the best of our knowledge, we are the first to leverage MAFs in learning progression networks. 
+	
+	\item \textbf{Capturing mutual exclusivity patterns between alterations.}
+	It is known that mutations in genes of the same pathway are often mutually exclusive, because single perturbation of a pathway is sufficient for progression. For example, in melanoma, NRAS and BRAF mutations are seldom observed in the same samples. In contrast to state-of-the-art methods where the mutual exclusivity patterns should be learned separately and get injected into the progression network inference procedure, our proposed method learns them naturally while inferring the progression DAG.
+\end{itemize}
+
+
+\section{Method}
+Consider $n$ samples for which allele frequencies of $d$ alterations $(X_1, \dots, X_d)$ are measured.  Here, we assume that there is an underlying DAG that represents the partial order according to which alterations accumulate in a specific cancer type. Observed MAFs form a data matrix $\mathbf{X} \in \mathbb{R}^{n \times d}$ where $x_{ij} \in [0,1]$ is the allele frequency of mutation $j$ in sample $i$. Each edge $(i,j)$ has a weight $w_{ij} \in [0,1]$ that represents the causal effect of alteration $i$ on $i$, i.e., $w_{ij} n_i \triangleq \mathbb{E} (N_j = n_j| \text{do}(N_i) = n_i)$. 
+
+\subsection{Progression Model} \label{model}
+We assume that each cell samples a path $p = (X_{p_1}, \dots, X_{p_m})$ from the progression DAG, i.e., the cell state starts from normal and probabilistically accumulates mutations in the order dictated by the sampled path. Note that at step $X_{p_i} \rightarrow X_{p_{i+1}}$ the progression can stop with probability $1 - w_{p_i p_{(i+1)}}$. Besides the regular progression rule described above, there is a non-zero chance that mutation $X_i$ occur without any parent which we call spontaneous activation \cite{nicol2020oncogenetic}. 
+Under this cell-wise progression model, one can write the number of cells with mutation $i$ as:
+\begin{equation} \label{sem}
+	\begin{aligned}
+		N_i = \sum_{j=0}^{d} w_{ij} N_j + \omega_i, \quad \omega_i \sim \text{Pois}(\lambda_i)
+	\end{aligned} 
+\end{equation}
+where $N_i$ is a random variable representing the number of cells with mutation $i$ and $\omega_i$ models cells that has gain mutation $i$ without following the given order (spontaneous activation describe in .
+
+
+For large enough $\lambda_i$, one can approximate the Poisson distribution with a Normal distribution, i.e., $\text{Pois}(\lambda_i) \approx \text{N}(\lambda_i, \lambda_i)$.
+With this approximation, we take out the mean of the normal distribution and reach to the following relationship: 
+\begin{equation}
+	\begin{aligned}
+		N_i = \sum_{j=0}^{d} w_{ij} N_j + \lambda_i + \varepsilon_i, \quad \varepsilon_i \sim \text{N}(0, \lambda_i)
+	\end{aligned} 
+\end{equation} 
+Dividing  both sides with the total number of cells gives the following equation between MAFs in the sample: 
+\begin{equation}
+	\begin{aligned}
+		X_i = \sum_{j=0}^{d} w_{ij} X_j + w_{i0} + \epsilon_i, \quad \epsilon_i  \sim \text{N}(0, \sigma_i^2 )
+	\end{aligned} 
+\end{equation} 
+where $X_i = \frac{N_i}{N}$ is the MAF of gene $i$, $w_{i0} = \frac{\lambda_i}{N}$, and $\sigma_i^2 = \frac{\lambda_i}{N^2}$.
+
+The causal relationship \eqref{sem} between the number of cells with specific mutations is a form of structural equation model \cite{zheng2018dags}. Dividing both sides by the total number of cells $N$, we get the following relationship between MAFs:
+\begin{equation}
+	X_i = \sum_{j=0}^{d} w_{ij} X_j + \epsilon_i, \quad \epsilon_i \sim N(0, \sigma^2) 
+\end{equation} 
+
+\subsection{Structure Learning}
+To learn $W$, often, we are interested in minimizing a loss $\mathcal{L}(W)$ subject to the DAGness constraint of the graph corresponding to $W$ . The loss function is usually mean squared error penalized with $\ell_1$ penalty to induce sparsity on $W$. Therefore the optimization becomes: 
+\begin{equation}\label{dopt}
+	\begin{aligned}
+		\min_W & \quad  \frac{1}{2n} \left\lVert X - XW \right\rVert_F^2 + \lambda \left\lVert W \right\rVert_1 \quad
+		\textrm{s.t.} & \quad G \in \mathbb{D}
+	\end{aligned}
+\end{equation}
+where $\left\lVert.\right\rVert_F$ is the Frobenius norm, $\left\lVert.\right\rVert_1$ is $\ell_1$ norm, $\lambda$ is the penalty coefficient, and $\mathbb{D}$ is the discrete set of all possible DAGs with $d$ nodes.
+
+The main issue with the optimization problem \eqref{dopt} is its combinatorial nature due to the $G \in \mathbb{D}$ constraint. The set $\mathbb{D}$  growths superexponentially in $d$ and makes solving the problem exactly NP-hard. Recently, the following continuous measure was introduced in \cite{zheng2018dags} for the characterization of acyclicity.
+\begin{theorem}\label{theorem:continuous-acyclicity}
+	A matrix $W \in \mathbb{R}^{d \times d}$ corresponds to a DAG if and only if
+	\begin{equation}
+		h(W) = tr(e^{W \circ W}) - d = 0
+	\end{equation}
+	where $\circ$ is the Hadamard product operator. Moreover, $h(W)$ has a simple gradient $\nabla h(W) = \left(e^{W\circ W}\right)^T \circ 2W$.
+\end{theorem}
+Note that $h(W) \geq 0$ is a smooth differentiable continuous function of a weight matrix $W$, whose value indicates ``DAG-ness'' of $G$. In other words, $h(W) = 0$ for DAGs and in loopy graphs, as the weight of loops decreases, $h(W)$ becomes smaller. 
+Next, \cite{zheng2018dags} suggest to solve the following non-convex problem (the constraint set is non-convex) by the augmented Lagrangian method:
+\vspace{-8pt}
+\begin{align}\label{copt}
+	\min_W & \frac{1}{2n} \left\lVert X - XW \right\rVert_F^2 + \lambda \left\lVert W \right\rVert_1 \textrm{ s.t. } h(W) = 0
+\end{align}
+For the cancer progression inference problem described in Section \ref{model}, we solve the exact objective of \eqref{copt} for a stationary point with an extra box constraint for elements of $W$, i.e., $w_{ij} \in [0, 1]$. Finally, at the end, we adopt two different threshold for positive and negative edges to shrink non confident edges to zero.
+
+
+\section{Results}
+\begin{figure*}[ht]
+	\vskip 0.2in
+	\begin{center}
+		%\centerline{\includegraphics[width=1.55\columnwidth]{img/melanoma_fig.pdf}}
+		\caption{Inferred Progression Network of Melanoma}
+		\label{fig:melanoma}
+	\end{center}
+	\vskip -0.2in
+\end{figure*}
+One of the major issues in validating the inferred progression network is the lack of ground truth biological knowledge about the progression of cancer. We will consider melanoma for evaluating our proposed method because we have a partial biological understanding of its progression. In fact, because of frequent screening for melanoma, precancerous lesions and tumor samples are obtained in different stages across the patient population. Thus, we have a better understanding of early and late alterations \cite{shain2015genetic, akbani2015genomic}. Here, we apply our proposed method to metastatic melanoma data of The Cancer Genome Atlas (\textbf{TCGA}) \cite{Cancer_Genome_Atlas_Research_Network2013-ee} and show that we can recover the known biological facts about the progression of melanoma.
+
+%    Therefore, usually, the first step is to simulate data from the proposed progression model and show that the inference recovers the ground truth successfully. Due to the limited space, we skip this step and directly apply our method to real data.
+
+%We will consider colon cancer and melanoma for evaluating our proposed method. These two cancers are the most suitable for validating the proposed method due to a partial biological understanding of their progressions. In fact, for melanoma and colon cancer, the tumors' samples are obtained in different stages across the patient population, since people screen more often. Thus, it leads to a better distinction between early and late alterations. Here, we apply our proposed method to metastatic melanoma data of The Cancer Genome Atlas (\textbf{TCGA}) \cite{} and show that we can recover the known biological facts about the progression of melanoma. 
+
+\subsection{Data and Preprocessing}
+The Mutation Allele Frequency (MAF) data of TCGA's Skin Cutaneous Melanoma (SKCM) is downloaded from the NCI Genomic Data Commons Data Portal. The data matrix consists of $470$ samples and $21220$ features, which are MAFs of all genes. As a preprocessing step, a set of driver mutations are selected using the results of a recent study \cite{bailey2018comprehensive}, where multiple driver-gene identification methods and tools have been combined and tested on TCGA's data. The reported driver genes of melanoma in \cite{bailey2018comprehensive} consists of 24 different genes. Next, we filtered out some of the genes with the insights provided by cBioPortal tool \cite{cerami2012cbio, gao2013integrative}. The discarded genes have no reported mutation hotspots, have a small proportion of nonsense mutations (truncating), and their reported missense mutations are uniformly spread across their cDNA with no known pathogenicity. These properties suggest that the discarded mutations tend to have no significant effects in melanoma. The preprocessing step leaves us with $n = 439$ samples and $d = 19$ driver-genes.
+
+\subsection{Recovered Progression Network}
+To quantify the uncertainty of recovered edge weights, we use bootstrap. We run our method on $100$ bootstrap samples and report the average weight for each edge. We then use the t-test to check that the average percentage of times an edge is recovered is over the given threshold of $\tau$. For this experiment, we pruned positive edges of weights below the threshold of $w_+ = 0.09$ and negative edges of weights above the threshold of $w_- = -0.01$.
+
+The inferred progression DAG of melanoma is illustrated in \figref{fig:melanoma}. Note that the final number of nodes in the figure is $15$ because four of the driver mutations (\textit{KIT}, \textit{GNA11}, \textit{HRAS} and \textit{KRAS}) were isolated and therefore we omitted them.
+
+\br, \nr, \nf, and \tp\ have the highest rate of mutation in melanoma. The negative edges of (\br, \nr) and (\br, \nf) suggest that they are mutually exclusive, as reported before \cite{akbani2015genomic}. After removing the negative edges (in red), the remaining graph represents the progression network. The main roots of the network are \br\ and \nr\, and they share many descendants where the most important one is \tp. Since \nf\ is not co-occurring with \br\, it seems that the progression order toward \nf\ is \nr\ $\rightarrow$ \tp\ $\rightarrow$ \nf. The strongest observed edge in the graph is (\br, \textit{PTEN}).
+
+
+\section{Discussion}
+There are various studies \cite{kunz2014oncogenes, akbani2015genomic, rajkumar2016molecular} on skin cancer, attempting to distinguish melanoma subtypes. Based on these studies, there are four main subtypes for melanoma. The \br\ mutation identifies the largest genomic subtype. This subtype consists of more than half of the melanoma cases. Our recovered network places \br\ at one of the roots of progression, which is aligned with the fact that it defines a subtype and also has been known to occur early in melanoma \cite{shain2015genetic}. The \textit{RAS} mutation family (\textit{\{N,K,H\}-RAS} but mostly \nr) determines the second genomic subtype of melanoma, which occurs in about a quarter of melanoma tumors. \nr\ is selected as another root for the progression graph, which is in agreement with being a subtype hallmark.
+
+The third subtype of melanoma is identified by \nf\ mutation. This mutation has happened in about $30\%$ of samples, which has no \br\ or \nr\ mutations. Our model does not capture the \nf\ as a separate root but recovers a negative edge between \br\ and \nf\, which suggests mutual exclusivity of the two. The last melanoma subtype is Triple-wild, i.e., samples without any of the \br, \nr, and \nf\ mutations. This subtype's frequency is much lower than the other ones (lower than $10\%$). The most related mutation attributed to this subtype occurs in \textit{KIT}, which is present in around $4\%$ of samples. \textit{KIT} mutation becomes an isolated node and is not shown in the progression network of \figref{fig:melanoma}.
+
+Our method captures negative edges (\br, \nr) and (\br, \nf), which suggests their mutual exclusivity. Mutual exclusivity of both pairs has been reported in the literature \cite{davies2002mutations, davies2010analysis}. The recovered negative weights show our proposed model's ability to learn mutual exclusivity relations simultaneously along with the progression network. 
+
+There are studies which claim that mutation in \textit{CDKN2A} and \textit{TP53} occur in intermediate and advanced melanoma \cite{shain2015genetic, davis2018melanoma}. In our recovered progression network, they occur after \br\ or \nr. Finally, the \textit{TP53} mutation is known to be a frequent mutation occurring in all major subtypes of \br, \nr, and \nf\ \cite{davis2018melanoma}. In our inferred progression DAG, there are direct paths that connect \tp\ and all major mutations of various subtypes. 
+
+\section{Conclusion}
+
+In this paper, we presented a novel approach for inferring cancer progression network from mutation allele frequency of cross-sectional tumor data. We formulated the problem as a continuous non-convex optimization over the class of DAGs, representing the underlying partial order of mutations occurring in cancer. The proposed method is able to take allele frequencies as input and finds mutually exclusive mutations while learning the progression network. We demonstrated these abilities of the method by using the TCGA Skin Cutaneous Melanoma data set as a case study. We showed that our model recovers a progression network that matches the known biological facts about tumorigenesis of melanoma and also captures the well-established mutual exclusivity patterns that are genomic hallmarks of melanoma subtypes.
+
+
+
+
+\section*{Appendix}
+
+Text for this section\ldots
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                          %%
+%% Backmatter begins here                   %%
+%%                                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{backmatter}
+	
+	\section*{Acknowledgements}%% if any
+	Text for this section\ldots
+	
+	\section*{Funding}%% if any
+	Text for this section\ldots
+	
+	\section*{Abbreviations}%% if any
+	Text for this section\ldots
+	
+	\section*{Availability of data and materials}%% if any
+	Text for this section\ldots
+	
+	\section*{Ethics approval and consent to participate}%% if any
+	Text for this section\ldots
+	
+	\section*{Competing interests}
+	The authors declare that they have no competing interests.
+	
+	\section*{Consent for publication}%% if any
+	Text for this section\ldots
+	
+	\section*{Authors' contributions}
+	Text for this section \ldots
+	
+	\section*{Authors' information}%% if any
+	Text for this section\ldots
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%                  The Bibliography                       %%
+	%%                                                         %%
+	%%  Bmc_mathpys.bst  will be used to                       %%
+	%%  create a .BBL file for submission.                     %%
+	%%  After submission of the .TEX file,                     %%
+	%%  you will be prompted to submit your .BBL file.         %%
+	%%                                                         %%
+	%%                                                         %%
+	%%  Note that the displayed Bibliography will not          %%
+	%%  necessarily be rendered by Latex exactly as specified  %%
+	%%  in the online Instructions for Authors.                %%
+	%%                                                         %%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	% if your bibliography is in bibtex format, use those commands:
+	\bibliographystyle{bmc-mathphys} % Style BST file (bmc-mathphys, vancouver, spbasic).
+	\bibliography{imo_bmc}      % Bibliography file (usually '*.bib' )
+	% for author-year bibliography (bmc-mathphys or spbasic)
+	% a) write to bib file (bmc-mathphys only)
+	% @settings{label, options="nameyear"}
+	% b) uncomment next line
+	%\nocite{label}
+	
+	% or include bibliography directly:
+	% \begin{thebibliography}
+	% \bibitem{b1}
+	% \end{thebibliography}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%                               %%
+	%% Figures                       %%
+	%%                               %%
+	%% NB: this is for captions and  %%
+	%% Titles. All graphics must be  %%
+	%% submitted separately and NOT  %%
+	%% included in the Tex document  %%
+	%%                               %%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%
+	%% Do not use \listoffigures as most will included as separate files
+	
+	\section*{Figures}
+	\begin{figure}[h!]
+		\caption{Sample figure title}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\caption{Sample figure title}
+	\end{figure}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%                               %%
+	%% Tables                        %%
+	%%                               %%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%% Use of \listoftables is discouraged.
+	%%
+	\section*{Tables}
+	\begin{table}[h!]
+		\caption{Sample table title. This is where the description of the table should go}
+		\begin{tabular}{cccc}
+			\hline
+			& B1  &B2   & B3\\ \hline
+			A1 & 0.1 & 0.2 & 0.3\\
+			A2 & ... & ..  & .\\
+			A3 & ..  & .   & .\\ \hline
+		\end{tabular}
+	\end{table}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%                               %%
+	%% Additional Files              %%
+	%%                               %%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section*{Additional Files}
+	\subsection*{Additional file 1 --- Sample additional file title}
+	Additional file descriptions text (including details of how to
+	view the file, if it is in a non-standard format or the file extension).  This might
+	refer to a multi-page table or a figure.
+	
+	\subsection*{Additional file 2 --- Sample additional file title}
+	Additional file descriptions text.
+	
+\end{backmatter}
+\end{document}
