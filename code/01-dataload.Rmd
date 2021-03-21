@@ -92,6 +92,52 @@ for(file in allFiles){
 
 ```
 
+We want to make a bigger data set by combining `COAD` and `READ`. Note that both share same set of drivers in the driver dataset. 
+```{r comb, warning = FALSE}
+load(file.path(paths$raw, 'MAF', paste('READ.Rda')))
+rmutFrac <- mutFraction
+dim(rmutFrac)
+load(file.path(paths$raw, 'MAF', paste('COAD.Rda')))
+cmutFrac <- mutFraction
+dim(cmutFrac)
+mutFraction <- merge(rmutFrac, cmutFrac, by=0, all=TRUE)
+rownames(mutFraction) <- mutFraction[,1]
+mutFraction[,1] <- NULL
+mutFraction[is.na(mutFraction)] <- 0  
+
+cancerType <- 'COREAD'
+driverGenes <- drivers$Gene[drivers$Cancer == 'COAD']
+driverGenes <- driverGenes[driverGenes %in% rownames(mutFraction)]
+driverFraction <- mutFraction[driverGenes,]
+#Finding mutations that are present in mor than 5% of the pop
+binaryDrivers <- driverFraction
+binaryDrivers[binaryDrivers > 0] <- 1
+frequentMut <- rowMeans(binaryDrivers) > 0.05
+###
+frequentDriversMaf <- driverFraction[frequentMut, ]
+frequentDriversBin <- binaryDrivers[frequentMut, ]
+
+# mafDb <- as.data.frame(t(frequentDriversMaf))
+normalCol <- rep(1, ncol(frequentDriversMaf))
+mafDb <- cbind(normalCol, as.data.frame(t(frequentDriversMaf)))
+binDb <- cbind(normalCol, as.data.frame(t(frequentDriversBin)))
+
+colnames(binDb)[1] <- colnames(mafDb)[1] <- "Normal"
+rownames(binDb) <- rownames(mafDb) <- NULL
+write.csv(colSums(binDb), 
+          file = file.path(paths$clean, 'SumDriverPresence', 
+                           paste(cancerType, '-SumPresence', '.csv', sep="") , sep=""), 
+          row.names = F)  
+write.csv(colMeans(mafDb), 
+          file = file.path(paths$clean, 'AvgDriverMaf', 
+                           paste(cancerType, '-AvgMaf', '.csv', sep="") , sep=""),
+          row.names = F)  
+write.csv(mafDb, 
+          file = file.path(paths$clean, 'DriverMaf', 
+                           paste(cancerType, '-Maf', '.csv', sep="") , sep=""),
+          row.names = F)
+```
+
 # DAG with no Tears
 Upload the input data from the DriverMaf folder into your Google Drive and run the Python code in the Google Colab notebook. Download the results and put them in the clean folder under Dag subfolder. Note that you can run the code for a subset of all cancer types. I did it only for `c('BLCA', 'SKCM', 'LUAD', 'LUSC', 'HNSC')` first.
 
@@ -99,16 +145,16 @@ Upload the input data from the DriverMaf folder into your Google Drive and run t
 Do a little bit of post-processing and draw the results. 
 ```{r drawing, warning = FALSE}
 library(igraph)
-types <- c('BLCA', 'SKCM', 'LUAD', 'LUSC', 'HNSC');
+types <- c('ACC', 'BLCA', 'BRCA', 'CESC', 'CHOL', 'COAD', 'COREAD', 'DLBC', 'ESCA', 'GBM', 'HNSC', 'KICH', 'KIRC', 'KIRP', 'LAML', 'LGG', 'LIHC', 'LUAD', 'LUSC', 'MESO', 'OV', 'PAAD', 'PCPG', 'PRAD', 'READ', 'SARC', 'SKCM', 'STAD', 'TGCT', 'THCA', 'THYM', 'UCS', 'UVM');
 # types <- c('SKCM')
 # seeds <- c(1, 123, 1, 12, 1)
 # seeds <- c(1)
-wthrsh <- c(.1, 0, 0, 0, 0)
+wthrsh <- c(0, .1, rep(0, 31))
 # wthrsh <- c(0.05)
 for(i in 1:length(types)){
   type <- types[i]
   thresh <-  wthrsh[i]
-  goodSeed <- seeds[i]
+  # goodSeed <- seeds[i]
   dag <- read.csv(file.path(paths$clean, 'Dag', 
                                paste('res-', type,'-Maf.csv', sep=""), sep=""), 
                      stringsAsFactors = FALSE)
